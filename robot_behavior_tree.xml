@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BehaviorTree>
+    <Node Name="Composite" Method="Sequence">
+        <Node Name="Action" Method="ConnectSpace">
+            <Node Name="Condition" Method="ConnectSpaceCondition"></Node>
+        </Node>
+        <Node Name="Action" Method="JoinSpace">
+            <Node Name="Condition" Method="JoinSpaceCondition"></Node>
+        </Node>
+        <!-- 以下节点顺序有一个执行成功则返回 -->
+        <Node Name="Composite" Method="Selector">
+            <!-- 移动 -->
+            <Node Name="Action" Method="Move">
+                <Node Name="Condition" Method="MoveCondition"></Node>
+            </Node>
+            <!-- 改变动作
+            <Node Name="Action" Method="ChangeAnimation">
+                <Node Name="Condition" Method="ChangeAnimationCondition"></Node>
+            </Node> -->
+            <!-- 改变朝向
+            <Node Name="Action" Method="ChangeDirection">
+                <Node Name="Condition" Method="ChangeDirectionCondition"></Node>
+            </Node> -->
+            <!-- 改变移动模式
+            <Node Name="Action" Method="ChangeMoveMode">
+                <Node Name="Condition" Method="ChangeMoveModeCondition"></Node>
+            </Node> -->
+            <!-- 改变套装
+            <Node Name="Action" Method="ChangeImage">
+                <Node Name="Condition" Method="ChangeImageCondition"></Node>
+            </Node> -->
+            <!-- 聊天
+            <Node Name="Action" Method="PrivateChat">
+                <Node Name="Condition" Method="PrivateChatCondition"></Node>
+            </Node>
+            <Node Name="Action" Method="NearChat">
+                <Node Name="Condition" Method="NearChatCondition"></Node>
+            </Node>
+            <Node Name="Action" Method="GlobalChat">
+                <Node Name="Condition" Method="GlobalChatCondition"></Node>
+            </Node>-->
+            <!-- 发送名片(仅适用于dev和beta)
+            <Node Name="Action" Method="SendCard">
+                <Node Name="Condition" Method="SendCardCondition"></Node>
+            </Node> -->
+            <!-- 跟随
+            <Node Name="Action" Method="Follow">
+                <Node Name="Condition" Method="FollowCondition"></Node>
+            </Node> -->
+            <!-- 传送退出
+            <Node Name="Action" Method="ExitSpace">
+                <Node Name="Condition" Method="ExitSpaceCondition"></Node>
+            </Node>-->
+            <!-- 断开连接
+            <Node Name="Action" Method="CloseConnection">
+                <Node Name="Condition" Method="CloseConnectionCondition"></Node>
+            </Node>-->
+        </Node>
+    </Node>
+</BehaviorTree>

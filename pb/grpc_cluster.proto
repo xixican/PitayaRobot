@@ -1,0 +1,457 @@
+syntax = "proto3";
+package pb;
+option go_package = "/;pb";
+
+enum StatusType{
+  NORMAL = 0;
+  OFFLINE = 1 ;
+}
+
+enum AnimationType{
+  DANCE_1 = 0;
+  DANCE_2 = 1;
+  DANCE_3 = 2;
+  DANCE_4 = 3;
+  DANCE_5 = 4;
+  DANCE_6 = 5;
+  DANCE_7 = 6;
+  DANCE_8 = 7;
+  DANCE_9 = 8;
+  DANCE_10 = 9;
+  //
+  HELLO_B =10;
+  HELLO_F =11;
+  HELLO_P =12;
+  //
+  JUMP_B = 13;
+  JUMP_F = 14;
+  JUMP_P = 15;
+  //
+  STAND_B=16;
+  STAND_F=17;
+  STAND_P=18;
+  //
+  WALK_B=19;
+  WALK_F=20;
+  WALK_P=21;
+  //
+  SIT_B=22;
+  SIT_F=23;
+  SIT_P=24;
+}
+
+enum DirectionType{
+  LEFT = 0;
+  RIGHT = 1;
+  UP = 2;
+  DOWN = 3;
+}
+
+enum MoveMode{
+  NORMAL_MODE = 0;
+  FLY_MODE = 1;
+}
+
+enum Identity{
+  Normal = 0; // 普通身份
+  Guest = 1; // 游客模式
+}
+
+enum RoleType{
+  Role_1 = 0;
+  Role_2 = 1;
+  Role_3 = 2;
+  Role_4 = 3;
+  Role_5 = 4;
+}
+
+message ConnectSpaceReq{
+  string SpaceId = 1;
+  string Pid = 2;
+  string EventId = 3;
+}
+
+//加入场景
+message JoinReq{
+  string Pid = 1;
+  string RealName = 2;
+  string SpaceId = 3;
+  string EventId = 4;
+  string I = 5;
+  // @inject_tag: json:"X"
+  int32 X = 6;
+  // @inject_tag: json:"Y"
+  int32 Y = 7;
+}
+
+message ExitSpaceReq{
+  string SpaceId = 1;
+  string Pid = 2;
+}
+
+//发送附近消息
+message SendNearMessageReq  {
+  string Content = 1;
+  // @inject_tag: json:"SpeakType"
+  int32 SpeakType = 2;
+}
+
+//发送私聊消息
+message SendPrivateMessageReq  {
+  string Pid = 1;
+  string Content = 2;
+  // @inject_tag: json:"SpeakType"
+  int32 SpeakType = 3;
+}
+
+//发送全局消息
+message SendGlobalMessageReq  {
+  string Content = 1;
+  // @inject_tag: json:"SpeakType"
+  int32 SpeakType = 2;
+}
+
+//移动请求
+message MoveReq{
+  // @inject_tag: json:"X"
+  int32 X = 1;
+  // @inject_tag: json:"Y"
+  int32 Y = 2;
+  // @inject_tag: json:"Z"
+  int32 Z = 3;
+  // @inject_tag: json:"Angle"
+  int32 Angle = 4;
+}
+
+//改变状态
+message ChangeStatusReq  {
+  // @inject_tag: json:"Status"
+  StatusType Status = 1;
+}
+
+//改变形象
+message ChangeImageReq  {
+  string Image = 1;
+}
+
+//改变名称
+message ChangeRealNameReq  {
+  string RealName = 1;
+}
+
+//改变动作
+message ChangeAnimationReq  {
+  // @inject_tag: json:"A"
+  AnimationType A = 1;
+}
+
+//面向
+message ChangeDirectionReq  {
+  // @inject_tag: json:"D"
+  DirectionType D = 1;
+}
+
+//设置高亮
+message SetHighLightReq{
+  string EventId = 1;
+  string SpaceId = 2;
+  string Pid = 3;
+}
+
+//取消高亮
+message DeleteHighLightReq{
+  string EventId = 1;
+  string SpaceId = 2;
+  string Pid = 3;
+}
+
+//获取场景里的高亮
+message GetHighLightReq{
+  string SpaceId = 1;
+}
+
+//设置超级高亮
+message SetSuperHighLightReq{
+  string EventId = 1;
+  string SpaceId = 2;
+  string Pid = 3;
+}
+
+//取消超级高亮
+message DeleteSuperHighLightReq{
+  string EventId = 1;
+  string SpaceId = 2;
+  string Pid = 3;
+}
+
+//获取场景里的超级高亮
+message GetSuperHighLightReq{
+  string EventId = 1;
+}
+
+message GetOnlinePeopleReq{
+  string SpaceId = 1;
+}
+
+message TransferReq{
+  // @inject_tag: json:"X"
+  int32 X = 1;
+  // @inject_tag: json:"Y"
+  int32 Y = 2;
+}
+
+message SendMyPosition  {
+  string Pid = 1;
+  // @inject_tag: json:"X"
+  int32 X = 2;
+  // @inject_tag: json:"Y"
+  int32 Y = 3;
+  // @inject_tag: json:"Z"
+  int32 Z = 4;
+  // @inject_tag: json:"Angle"
+  int32 Angle = 5;
+  int32 lineId = 6; // 分线Id
+}
+
+message Pid  {
+  string Pid = 1;
+}
+
+message Position  {
+  string Pid = 1;//id
+  string RealName = 2;//昵称
+  // @inject_tag: json:"X"
+  int32  X = 3;//X坐标
+  // @inject_tag: json:"Y"
+  int32  Y = 4;//Y坐标
+  // @inject_tag: json:"Z"
+  int32 Z = 5;
+  // @inject_tag: json:"Angle"
+  int32 Angle = 6;
+  // @inject_tag: json:"D"
+  DirectionType  D = 7;//面向
+  // @inject_tag: json:"A"
+  AnimationType A = 8;//动作
+  // @inject_tag: json:"S"
+  StatusType  S = 9;//状态
+  bool B = 10;//是否刚刚出生（出生动画）
+  string I = 11;//服装
+  // @inject_tag: json:"moveMode"
+  MoveMode MoveMode = 12;//移动状态
+  bool IsRaiseHand = 13;//是否举手状态
+  Identity Identity = 14; // 身份
+  repeated string Pets = 15; // 携带宠物信息
+  string RoleName = 16; // 用户角色名称
+  // @inject_tag: json:"RoleType"
+  RoleType RoleType = 17; // 用户角色类型
+  double speed = 18; // 移动速度
+}
+
+message MovePosition  {
+  string Pid = 1;
+  // @inject_tag: json:"X"
+  int32 X = 2;
+  // @inject_tag: json:"Y"
+  int32 Y = 3;
+  // @inject_tag: json:"Z"
+  int32 Z = 4;
+  // @inject_tag: json:"Angle"
+  int32 Angle = 5;
+  bool Transfer = 6;
+}
+
+message HighLightPlayer{
+  string Pid = 1;
+  // @inject_tag: json:"S"
+  StatusType  S = 2;
+  string RealName = 3;
+  string I = 4;
+  string SpaceId = 5;
+}
+
+message AllHighLightPlayers{
+  repeated HighLightPlayer HighLightPlayer = 1;
+}
+
+message HighLightUpdate {
+  string Pid = 1;
+  // @inject_tag: json:"Event"
+  int32 Event = 2;
+  string RealName = 3;
+  string I = 4;
+  string SpaceId = 5;
+}
+
+message NewStatus  {
+  string Pid = 1;
+  StatusType  S = 2;
+}
+
+message NewImage  {
+  string Pid = 1;
+  string I = 2;
+}
+
+message NewName  {
+  string Pid = 1;
+  string Name = 2;
+}
+
+message UserMessage  {
+  string Pid = 1;
+  string RealName = 2;
+  int64  Time = 3;
+  string Content = 4;
+  // @inject_tag: json:"SpeakType"
+  int32 SpeakType = 5;
+}
+
+message Direction  {
+  string Pid = 1;
+  // @inject_tag: json:"D"
+  DirectionType D = 2;
+}
+
+message Rollback  {
+  // @inject_tag: json:"X"
+  int32 X = 1;
+  // @inject_tag: json:"Y"
+  int32 Y = 2;
+  // @inject_tag: json:"D"
+  DirectionType D = 3;
+}
+
+message SpaceId  {
+  string SpaceId = 1;
+}
+
+message Pids  {
+  repeated string Pid = 1;
+}
+
+//后续
+message Animation  {
+  string Pid = 1;
+  // @inject_tag: json:"A"
+  AnimationType  A = 2;
+}
+
+message Member {
+  string Pid = 1;
+  string RealName = 2;
+  // @inject_tag: json:"S"
+  StatusType  S = 3;
+  string I = 4;
+}
+
+message Members {
+  repeated Member Member = 1;
+}
+
+//修改人物行走状态
+message ChangeMoveModeReq {
+  // @inject_tag: json:"mode"
+  MoveMode mode = 1;
+}
+
+message MoveModeUpdate {
+  string Pid = 1;
+  // @inject_tag: json:"mode"
+  MoveMode mode = 2;
+}
+
+//公告消息
+message Notice{
+  int64 Timestamp = 1;
+  string Content = 2;
+}
+//转播屏推送
+message Screen{
+  string Pid = 1;
+  string RealName = 2;
+  string ScreenId = 3;
+  string ConvertId = 4;
+  string PlayURL = 5;
+}
+
+message AllScreens{
+  repeated Screen Screen = 1;
+}
+
+//space静音
+message Mute{
+  bool Mute = 1;
+}
+
+//通知space摄像头状态
+message SpaceCamera{
+  bool Camera = 1;
+}
+
+//通知space共享屏幕状态
+message SpaceShareScreen{
+  bool ShareScreen = 1;
+}
+
+message SpaceStatus{
+  bool Mute = 1;
+  bool Camera = 2;
+  bool ShareScreen = 3;
+  //NEXT
+}
+
+message ChangeSpaceMuteReq{
+  string SpaceId = 1;
+  bool Mute = 2;
+}
+
+message ChangeSpaceCameraReq{
+  string SpaceId = 1;
+  bool Camera = 2;
+}
+
+message ChangeSpaceShareScreenReq{
+  string SpaceId = 1;
+  bool ShareScreen = 2;
+}
+
+message Chat{
+  bool Chat = 1;
+}
+
+message EventStatus{
+  bool Chat = 1;
+}
+
+message ChangeEventChatReq{
+  string EventId = 1;
+  bool Chat = 2;
+}
+
+message TargetPosition{
+  // @inject_tag: json:"X"
+  int32 X = 1;
+  // @inject_tag: json:"Y"
+  int32 Y = 2;
+}
+
+//发送名片通知
+message SendCardNotice{
+  string cardId = 1;
+}
+
+// 开始跟随
+message StartFollowReq{
+  string FollowPid = 1;//要跟随的玩家Id
+}
+
+// 跟随的队长位置更新
+message CaptainPositionUpdate {
+  string CaptainPid = 1;
+  // @inject_tag: json:"X"
+  int32 X = 2;
+  // @inject_tag: json:"Y"
+  int32 Y = 3;
+  // @inject_tag: json:"D"
+  DirectionType  D = 4;//面向
+}
